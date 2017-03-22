@@ -1,7 +1,7 @@
-require "capistrano/forkcms/version"
+load File.expand_path('../tasks/fork.rake', __FILE__)
 
-module Capistrano
-  module Forkcms
-    # Your code goes here...
+namespace :load do
+  task :defaults do
+    load "capistrano/forkcms/defaults.rb"
   end
 end
