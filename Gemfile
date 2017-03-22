@@ -4,3 +4,4 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'capistrano', '~> 3.1'
+gem 'capistrano-composer', '~> 0.0.6'
