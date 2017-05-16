@@ -14,6 +14,7 @@ end
 # Make sure the composer executable is installed
 namespace :deploy do
   after :starting, "composer:install_executable"
+  after :publishing, "forkcms:symlink:document_root"
 end
 
 
