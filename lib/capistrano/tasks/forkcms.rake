@@ -1,4 +1,8 @@
 namespace :forkcms do
+  desc <<-DESC
+    Configures composer
+    It make sure the command is mapped correctly and the correct flags are used.
+  DESC
   task :configure_composer do
     # Set the correct composer flags
     set :composer_install_flags, '--no-dev --no-interaction --quiet --optimize-autoloader --no-scripts'
