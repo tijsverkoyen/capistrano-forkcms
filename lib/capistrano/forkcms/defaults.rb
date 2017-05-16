@@ -7,7 +7,7 @@ set :linked_dirs, -> { ["app/logs", "app/sessions", "src/Frontend/Files"] }
 
 # Run required tasks after the stage
 Capistrano::DSL.stages.each do |stage|
-  after stage, "forkcms:configure_composer"
+  after stage, "forkcms:configure:composer"
 end
 
 
