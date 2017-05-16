@@ -1,21 +1,21 @@
-#
-# Capistrano defaults
-#
+# Set some Capistrano defaults
 set :linked_files, []
 set :linked_files, -> { ["app/config/parameters.yml"] }
 set :linked_dirs, []
 set :linked_dirs, -> { ["app/logs", "app/sessions", "src/Frontend/Files"] }
 
-#
-# Capistrano/Composer defaults
-#
-puts deploy_to
 
-SSHKit.config.command_map[:composer] = "php #{deploy_to}/shared/composer.phar"
+# Run required tasks after the stage
+Capistrano::DSL.stages.each do |stage|
+  after stage, 'forkcms:configure_composer'
+end
 
-set :composer_working_dir, -> { fetch(:release_path) }
-set :composer_install_flags, '--no-dev --no-interaction --quiet --optimize-autoloader --no-scripts'
 
+# Make sure the composer executable is installed
 namespace :deploy do
   after :starting, 'composer:install_executable'
 end
+
+
+# Load the tasks
+load File.expand_path("../../tasks/forkcms.rake", __FILE__)
