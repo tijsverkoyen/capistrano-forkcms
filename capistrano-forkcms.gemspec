@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Fork CMS specific Capistrano tasks}
   spec.description   = %q{Capistrano ForkCMS - Easy deployment of ForkCMS 5+ apps with Ruby over SSH}
-  spec.homepage      = "https://github.com/tijsverkoyen/capistrano-fork"
+  spec.homepage      = "https://github.com/tijsverkoyen/capistrano-forkcms"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
