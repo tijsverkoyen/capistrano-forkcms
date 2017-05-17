@@ -43,36 +43,44 @@ Configuration options:
 
 1. Create a Capfile with the content below:
 
-    # Load DSL and set up stages
-    require "capistrano/setup"
+```
+# Load DSL and set up stages
+require "capistrano/setup"
 
-    # Include default deployment tasks
-    require "capistrano/deploy"
+# Include default deployment tasks
+require "capistrano/deploy"
 
-    require "capistrano/scm/git"
-    install_plugin Capistrano::SCM::Git
+require "capistrano/scm/git"
+install_plugin Capistrano::SCM::Git
 
-    require "capistrano/forkcms"
+require "capistrano/forkcms"
 
-    # Load custom tasks from `lib/capistrano/tasks` if you have any defined
-    Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+# Load custom tasks from `lib/capistrano/tasks` if you have any defined
+Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+```
 
 2. Create a file called `config/deploy.rb`, with the content below:
 
-    set :application, "$your-application-name"
-    set :repo_url, "$your-repo-url"
+```
+set :application, "$your-application-name"
+set :repo_url, "$your-repo-url"
 
-    set :keep_releases, 3
+set :keep_releases, 3
+```
 
 3. Create a file called `config/deploy/production.rb`, with the content below:
 
-    ... @todo, fix this
+```
+... @todo, fix this
+```
 
 4. Create a file called `config/deploy/staging.rb`, with the content below:
 
-    server "$your-server-hostname", user: "sites", roles: %w{app db web}
-    set :deploy_to, "$your-path-where-everything-should-be-deployed"
-    set :document_root, "$your-document-root"
+```
+server "$your-server-hostname", user: "sites", roles: %w{app db web}
+set :deploy_to, "$your-path-where-everything-should-be-deployed"
+set :document_root, "$your-document-root"
+```
     
 
 ## Contributing
