@@ -1,4 +1,5 @@
 require "capistrano/composer"
+require "capistrano/cachetool"
 
 namespace :load do
   task :defaults do

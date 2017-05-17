@@ -8,12 +8,14 @@ set :linked_dirs, -> { ["app/logs", "app/sessions", "src/Frontend/Files"] }
 # Run required tasks after the stage
 Capistrano::DSL.stages.each do |stage|
   after stage, "forkcms:configure:composer"
+  after stage, "forkcms:configure:cachetool"
 end
 
 
 # Make sure the composer executable is installed
 namespace :deploy do
   after :starting, "composer:install_executable"
+  after :starting, "cachetool:install_executable"
   after :publishing, "forkcms:symlink:document_root"
 end
 

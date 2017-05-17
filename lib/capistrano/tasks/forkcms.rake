@@ -11,6 +11,15 @@ namespace :forkcms do
       # Set the correct bin
       SSHKit.config.command_map[:composer] = "#{fetch :php_bin_path} #{fetch :deploy_to}/shared/composer.phar"
     end
+
+    desc <<-DESC
+      Configures cachetool
+      It make sure the command is mapped correctly and the correct flags are used.
+    DESC
+    task :cachetool do
+      # Set the correct bin
+      SSHKit.config.command_map[:cachetool] = "#{fetch :php_bin_path} #{fetch :deploy_to}/shared/cachetool.phar"
+    end
   end
 
   namespace :symlink do
