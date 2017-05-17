@@ -27,6 +27,7 @@ Require the module in your Capfile:
 The plugin comes with two tasks:
 
 * `forkcms:configure:composer`, which will configure the `capistrano/composer` plugin.
+* `forkcms:opcache:reset`, which will reset the opcache.
 * `forkcms:symlink:document_root`, which will link the document_root to the current-folder. 
 
 But you won't need any of them as everything is wired automagically.
@@ -37,7 +38,11 @@ But you won't need any of them as everything is wired automagically.
 Configuration options:
 
 * `:php_bin_custom_path`, this will allow you to configure a custom PHP binary, the fallback is `php`.
-  
+* `:opcache_reset_strategy`, the reset strategy. Possible options: file, fcgi
+* `opcache_reset_fcgi_connection_string`, the fcgi-connection string used for the [cachetool](http://gordalina.github.io/cachetool/).
+   required when `:opcache_reset_strategy` is `fcgi`.
+* `opcache_reset_base_url`, the public url of your website. Required when `:opcache_reset_strategy` is `file`
+
 
 ## How to use with a fresh Fork install
 
@@ -78,10 +83,18 @@ set :keep_releases, 3
 
 ```
 server "$your-server-hostname", user: "sites", roles: %w{app db web}
-set :deploy_to, "$your-path-where-everything-should-be-deployed"
-set :document_root, "$your-document-root"
+set :deploy_to, "$your-path-where-everything-should-be-deployed" # eg: /home/johndoe/apps/website
+set :document_root, "$your-document-root" # eg: /var/www
+
+set :opcache_reset_strategy, "fcgi"
+set :opcache_reset_fcgi_connection_string, "$your-php-fpm-socket-or-connection-string" # eg: /var/run/php_71_fpm_sites.sock
+
+# or if you are not using FCGI/FPM
+#set :opcache_reset_strategy, "file"
+#set :opcache_reset_base_url, "$your-public-url" # eg: "http://www.fork-cms.com"
+
 ```
-    
+
 
 ## Contributing
 
