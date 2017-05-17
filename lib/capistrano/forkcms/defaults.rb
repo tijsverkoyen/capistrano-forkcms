@@ -21,4 +21,5 @@ end
 
 
 # Load the tasks
-load File.expand_path("../../tasks/forkcms.rake", __FILE__)
+load File.expand_path("../../tasks/configure.rake", __FILE__)
+load File.expand_path("../../tasks/symlink.rake", __FILE__)
