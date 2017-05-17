@@ -25,5 +25,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "capistrano", "~> 3.1"
   spec.add_dependency "capistrano-composer", "~> 0.0.6"
-  spec.add_dependency "capistrano-cachetool", "~> 0.1.0"
+  spec.add_dependency "capistrano-cachetool", "~> 1.0.0"
 end
