@@ -8,7 +8,7 @@ namespace :forkcms do
         invoke 'forkcms:opcache:reset_with_file'
       elsif fetch(:opcache_reset_strategy) === 'fcgi'
         invoke 'forkcms:opcache:reset_with_fcgi'
-      elseif fetch(:opcache_reset_strategy) === 'none'
+      elsif fetch(:opcache_reset_strategy) === 'none'
         # do nothing
       else
         raise 'Invalid value for :opcache_reset_strategy, possible values are: file, fcgi, none.'
