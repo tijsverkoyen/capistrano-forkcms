@@ -1,5 +1,8 @@
 require 'bundler/setup'
-require 'capistrano/cachetool'
+require "capistrano/all"
+require "capistrano/framework"
+require "capistrano/composer"
+require 'capistrano/forkcms'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
