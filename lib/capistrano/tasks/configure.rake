@@ -32,12 +32,12 @@ namespace :forkcms do
         if test("[ -L #{fetch :document_root} ]") && capture("readlink -- #{fetch :document_root}") == "#{current_path}/"
           # all is well, the symlink is correct
         elsif test("[ -d #{fetch :document_root} ]") || test("[ -f #{fetch :document_root} ]")
-          error "Document root #{fetch :document_root} already exists."
-          error "To link it, issue the following command:"
+          error 'Document root #{fetch :document_root} already exists.'
+          error 'To link it, issue the following command:'
           error "ln -sf #{current_path}/ #{fetch :document_root}"
         else
-          execute :mkdir, "-p", File.dirname(fetch(:document_root))
-          execute :ln, "-sf", "#{current_path}/", fetch(:document_root)
+          execute :mkdir, '-p', File.dirname(fetch(:document_root))
+          execute :ln, '-sf', "#{current_path}/", fetch(:document_root)
         end
       end
     end
