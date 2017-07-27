@@ -49,22 +49,21 @@ Configuration options:
 1. Create a Capfile with the content below:
 
 ```
-# Load DSL and set up stages
-require "capistrano/setup"
+set :deploy_config_path, 'app/config/capistrano/deploy.rb'
+set :stage_config_path, 'app/config/capistrano/stages'
 
-# Include default deployment tasks
-require "capistrano/deploy"
-
-require "capistrano/scm/git"
+require 'capistrano/setup'
+require 'capistrano/deploy'
+require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
+require 'capistrano/forkcms'
 
-require "capistrano/forkcms"
+set :format_options, log_file: 'app/logs/capistrano.log'
 
-# Load custom tasks from `lib/capistrano/tasks` if you have any defined
-Dir.glob("lib/capistrano/tasks/*.rake").each { |r| import r }
+Dir.glob('app/config/capistrano/tasks/*.rake').each { |r| import r }
 ```
 
-2. Create a file called `config/deploy.rb`, with the content below:
+2. Create a file called `app/config/capistrano/deploy.rb`, with the content below:
 
 ```
 set :application, "$your-application-name"
@@ -73,16 +72,11 @@ set :repo_url, "$your-repo-url"
 set :keep_releases, 3
 ```
 
-3. Create a file called `config/deploy/production.rb`, with the content below:
+3. Create a file called `app/config/capistrano/stages/production.rb`, with the content below:
 
 ```
-... @todo, fix this
-```
+server "$your-server-hostname", user: "$your-user", roles: %w{app db web}
 
-4. Create a file called `config/deploy/staging.rb`, with the content below:
-
-```
-server "$your-server-hostname", user: "sites", roles: %w{app db web}
 set :deploy_to, "$your-path-where-everything-should-be-deployed" # eg: /home/johndoe/apps/website
 set :document_root, "$your-document-root" # eg: /var/www
 
@@ -93,8 +87,31 @@ set :opcache_reset_fcgi_connection_string, "$your-php-fpm-socket-or-connection-s
 #set :opcache_reset_strategy, "file"
 #set :opcache_reset_base_url, "$your-public-url" # eg: "http://www.fork-cms.com"
 
+### DO NOT EDIT BELOW ###
+set :branch, "master"
+set :keep_releases, 3
+set :php_bin, "php"
+
+SSHKit.config.command_map[:composer] = "#{fetch :php_bin} #{shared_path.join("composer.phar")}"
+SSHKit.config.command_map[:php] = fetch(:php_bin)
 ```
 
+4. Create a file called `app/config/capistrano/stages/staging.rb`, with the content below:
+
+```
+server "$your-server-hostname", user: "$your-user", roles: %w{app db web}
+set :deploy_to, "$your-path-where-everything-should-be-deployed" # eg: /home/johndoe/apps/website
+set :document_root, "$your-document-root" # eg: /var/www
+
+set :opcache_reset_strategy, "fcgi"
+set :opcache_reset_fcgi_connection_string, "$your-php-fpm-socket-or-connection-string" # eg: /var/run/php_71_fpm_sites.sock
+
+# or if you are not using FCGI/FPM
+#set :opcache_reset_strategy, "file"
+#set :opcache_reset_base_url, "$your-public-url" # eg: "http://www.fork-cms.com"
+
+set :branch, "staging"
+```
 
 ## Contributing
 
