@@ -1,7 +1,7 @@
 require 'bundler/setup'
-require "capistrano/all"
-require "capistrano/framework"
-require "capistrano/composer"
+require 'capistrano/all'
+require 'capistrano/framework'
+require 'capistrano/composer'
 require 'capistrano/forkcms'
 
 RSpec.configure do |config|
