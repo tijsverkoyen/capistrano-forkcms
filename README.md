@@ -7,7 +7,13 @@ Capistrano ForkCMS - Easy deployment of ForkCMS 5+ apps with Ruby over SSH.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+First, we create a Gemfile by executing:
+
+```bash
+bundle init
+```
+
+Now add this line to this created application's Gemfile:
 
 ```ruby
 gem 'capistrano-forkcms'
@@ -15,8 +21,9 @@ gem 'capistrano-forkcms'
 
 And then execute:
 
-    $ bundle
-
+```bash
+bundle
+```
 
 ## Usage
 
