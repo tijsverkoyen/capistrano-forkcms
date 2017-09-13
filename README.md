@@ -87,6 +87,7 @@ set :repo_url, "$your-repo-url"
 
 set :keep_releases, 3
 ```
+> F.e.: `$your-application-name` can be "website" (this will create a folder `apps/website`) and `$your-repo-url` can be something like `git@github.com:<username>/<repository-name>.git`.
 
 3. Create a file called `app/config/capistrano/stages/production.rb`, with the content below:
 
