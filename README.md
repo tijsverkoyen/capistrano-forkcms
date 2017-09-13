@@ -27,10 +27,12 @@ bundle
 
 ## Usage
 
-First, create a Capfile by executing:
+We need a `Capfile` in our project.
+You can create one by executing:
 ```bash
 cap install
 ```
+> In [How to use with a fresh Fork install](#how-to-use-wth-a-fresh-fork-install) you have to copy/paste the code.
 
 Then require the module in your Capfile:
 
