@@ -27,9 +27,16 @@ bundle
 
 ## Usage
 
-Require the module in your Capfile:
+First, create a Capfile by executing:
+```bash
+cap install
+```
 
-    require "capistrano/forkcms"
+Then require the module in your Capfile:
+
+```
+require "capistrano/forkcms"
+```
     
 The plugin comes with two tasks:
 
