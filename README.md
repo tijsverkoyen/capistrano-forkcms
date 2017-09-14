@@ -24,7 +24,7 @@ Require the module in your Capfile:
 
     require "capistrano/forkcms"
     
-The plugin comes with two tasks:
+The plugin comes with some tasks:
 
 * `forkcms:configure:composer`, which will configure the `capistrano/composer` plugin.
 * `forkcms:opcache:reset`, which will reset the opcache.
@@ -43,6 +43,11 @@ Configuration options:
    required when `:opcache_reset_strategy` is `fcgi`.
 * `opcache_reset_base_url`, the public url of your website. Required when `:opcache_reset_strategy` is `file`
 
+### `:opcache_reset_strategy`
+
+If you are using `file` as the strategy, you will need to alter the .htaccess-file to allow 'php-opcache-reset.php' to be accessed directly. 
+
+Add `RewriteRule php-opcache-reset\.php - [L]` below `RewriteRule ^index\.php$ - [L]` in the .htaccess-file
 
 ## How to use with a fresh Fork install
 
