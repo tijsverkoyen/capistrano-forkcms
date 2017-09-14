@@ -58,7 +58,7 @@ require 'capistrano/scm/git'
 install_plugin Capistrano::SCM::Git
 require 'capistrano/forkcms'
 
-set :format_options, log_file: 'app/logs/capistrano.log'
+set :format_options, log_file: 'var/logs/capistrano.log'
 
 Dir.glob('app/config/capistrano/tasks/*.rake').each { |r| import r }
 ```
