@@ -7,7 +7,13 @@ Capistrano ForkCMS - Easy deployment of ForkCMS 5+ apps with Ruby over SSH.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+First, we create a Gemfile by executing:
+
+```bash
+bundle init
+```
+
+Now add this line to this created application's Gemfile:
 
 ```ruby
 gem 'capistrano-forkcms'
@@ -15,14 +21,24 @@ gem 'capistrano-forkcms'
 
 And then execute:
 
-    $ bundle
-
+```bash
+bundle
+```
 
 ## Usage
 
-Require the module in your Capfile:
+We need a `Capfile` in our project.
+You can create one by executing:
+```bash
+cap install
+```
+> In [How to use with a fresh Fork install](#how-to-use-wth-a-fresh-fork-install) you have to copy/paste the code.
 
-    require "capistrano/forkcms"
+Then require the module in your Capfile:
+
+```
+require "capistrano/forkcms"
+```
     
 The plugin comes with some tasks:
 
@@ -76,6 +92,7 @@ set :repo_url, "$your-repo-url"
 
 set :keep_releases, 3
 ```
+> F.e.: `$your-application-name` can be "website" (this will create a folder `apps/website`) and `$your-repo-url` can be something like `git@github.com:<username>/<repository-name>.git`.
 
 3. Create a file called `app/config/capistrano/stages/production.rb`, with the content below:
 
