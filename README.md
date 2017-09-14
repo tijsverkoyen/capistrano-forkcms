@@ -47,7 +47,7 @@ Configuration options:
 
 If you are using `file` as the strategy, you will need to alter the .htaccess-file to allow 'php-opcache-reset.php' to be accessed directly. 
 
-Add `RewriteRule php-opcache-reset\.php - [L]` below `RewriteRule ^index\.php$ - [L]` in the .htaccess-file
+Add `RewriteRule ^php-opcache-reset\.php$ - [L]` below `RewriteRule ^index\.php$ - [L]` in the .htaccess-file
 
 ## How to use with a fresh Fork install
 
