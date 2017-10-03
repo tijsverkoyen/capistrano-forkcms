@@ -17,6 +17,7 @@ namespace :deploy do
   after :starting, 'cachetool:install_executable'
   after :publishing, 'forkcms:symlink:document_root'
   after :publishing, 'forkcms:opcache:reset'
+  after :updated, 'forkcms:migrations:execute'
 end
 
 
