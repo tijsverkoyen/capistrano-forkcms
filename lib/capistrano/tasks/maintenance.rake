@@ -18,13 +18,8 @@ namespace :forkcms do
     private
     # Creates the maintenance folder based on the local maintenance folder to display when migrating
     def create_maintenance_folder
-      # Check if the maintenance folder exists.
-      maintenanceFolderExists = capture("if [ -d #{shared_path}/maintenance ]; then echo 'yes'; fi").chomp
-
       # Stop if the maintenance folder exists
-      if maintenanceFolderExists == 'yes'
-        return
-      end
+      return if capture("if [ -d #{shared_path}/maintenance ]; then echo 'yes'; fi").chomp == 'yes'
 
       local_maintenance_path = File.dirname(__FILE__)
       local_maintenance_path = "#{local_maintenance_path}/../../maintenance"
