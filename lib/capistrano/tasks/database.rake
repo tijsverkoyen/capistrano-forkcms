@@ -13,7 +13,6 @@ namespace :forkcms do
     desc 'Restore the database from a backup file'
     task :restore do
       on roles(:web) do
-        # Check if the file exists.
         if not test "[[ -f #{release_path}/#{backup_file} ]]"
           raise "No backup file found, create a backup first"
         end
@@ -25,7 +24,6 @@ namespace :forkcms do
     desc 'Execute an SQL file'
     task :execute, [:file] do |t, arguments|
       on roles(:web) do
-        # Stop if the file does not exist
         if not test "[[ -f #{arguments[:file]} ]]"
           raise "File at #{arguments[:file]} does not exist"        
         end
@@ -39,7 +37,6 @@ namespace :forkcms do
     private
     def get_parameters
       parameter_path = "#{shared_path}/app/config/parameters.yml"
-      # Abort if the parameters file doesn't exist
       if not test "[[ -f #{parameter_path} ]]"
         raise "parameters.yml not found, it should be at #{parameter_path}"
       end
