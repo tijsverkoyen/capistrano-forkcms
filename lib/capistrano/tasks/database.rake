@@ -1,19 +1,11 @@
 namespace :forkcms do
   namespace :database do
-
     backup_file = 'mysql_backup.sql'
 
     desc 'Create a backup of the database'
     task :backup do
       on roles(:web) do
-        # Fetch our flags to reach the database
         flags = get_mysql_connection_flags
-
-        # Abort if no flags are found
-        if flags == nil
-          next
-        end
-
         execute :mysqldump, "#{flags} --skip-lock-tables > #{release_path}/#{backup_file}"
       end
     end
@@ -23,8 +15,7 @@ namespace :forkcms do
       on roles(:web) do
         # Check if the file exists.
         if capture("if [ -f #{release_path}/#{backup_file} ]; then echo 'yes'; fi").chomp != 'yes'
-          puts "No backup file found, create a backup first"
-          next
+          raise "No backup file found, create a backup first"
         end
 
         Rake::Task["forkcms:database:execute"].invoke("#{release_path}/#{backup_file}")
@@ -36,19 +27,11 @@ namespace :forkcms do
       on roles(:web) do
         # Stop if the file does not exist
         if capture("if [ -f #{arguments[:file]} ]; then echo 'yes'; fi").chomp != 'yes'
-          puts "File at #{arguments[:file]} does not exist"
-          next        
-        end
-
-        # Fetch our flags to reach the database
-        flags = get_mysql_connection_flags
-
-        # Abort if no flags are found
-        if flags == nil
-          next
+          raise "File at #{arguments[:file]} does not exist"        
         end
 
         # Execute the file
+        flags = get_mysql_connection_flags
         execute :mysql,"#{flags} < #{arguments[:file]}"
       end
     end
@@ -58,8 +41,7 @@ namespace :forkcms do
       parameter_path = "#{shared_path}/app/config/parameters.yml"
       # Abort if the parameters file doesn't exist
       if capture("if [ -f #{parameter_path} ]; then echo 'yes'; fi").chomp != 'yes'
-        puts "parameters.yml not found, it should be at #{parameter_path}"
-        return
+        raise "parameters.yml not found, it should be at #{parameter_path}"
       end
 
       # Fetch the content of the parameters
@@ -96,11 +78,15 @@ namespace :forkcms do
 
       # Append each mapped property to our flags
       mapping.each do |key, value|
-        flags << "--#{key}=#{value} " unless value.nil?
+        raise "\"#{key}\" is not set in the parameters.yml file" if value.nil?
+
+        flags << "--#{key}=#{value} "
       end
 
       # Append our database
       database = parameters.fetch('database.name')
+      raise "\"database.name\" is not set in the parameters.yml file" if database.nil?
+
       flags << "#{database}"
 
       return flags
