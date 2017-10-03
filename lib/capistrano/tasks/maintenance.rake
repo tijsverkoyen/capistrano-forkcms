@@ -25,7 +25,7 @@ namespace :forkcms do
       local_maintenance_path = "#{lib_path}/../../maintenance"
 
       # Create a maintenance folder containing the index page from our gem
-      execute :mkdir, "#{shared_path}/maintenance"
+      execute :mkdir, "-p #{shared_path}/maintenance"
 
       # copy the contents of the index.html file to our shared folder
       upload! File.open(local_maintenance_path + '/index.html'), "#{shared_path}/maintenance/index.html"
