@@ -21,8 +21,8 @@ namespace :forkcms do
       # Stop if the maintenance folder exists
       return if capture("if [ -d #{shared_path}/maintenance ]; then echo 'yes'; fi").chomp == 'yes'
 
-      local_maintenance_path = File.dirname(__FILE__)
-      local_maintenance_path = "#{local_maintenance_path}/../../maintenance"
+      lib_path = File.dirname(__FILE__)
+      local_maintenance_path = "#{lib_path}/../../maintenance"
 
       # Create a maintenance folder containing the index page from our gem
       execute :mkdir, "#{shared_path}/maintenance"
