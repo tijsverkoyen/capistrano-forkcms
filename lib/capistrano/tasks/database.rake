@@ -14,7 +14,7 @@ namespace :forkcms do
     task :restore do
       on roles(:web) do
         # Check if the file exists.
-        if capture("if [ -f #{release_path}/#{backup_file} ]; then echo 'yes'; fi").chomp != 'yes'
+        if not test "[[ -f #{release_path}/#{backup_file} ]]"
           raise "No backup file found, create a backup first"
         end
 
@@ -26,7 +26,7 @@ namespace :forkcms do
     task :execute, [:file] do |t, arguments|
       on roles(:web) do
         # Stop if the file does not exist
-        if capture("if [ -f #{arguments[:file]} ]; then echo 'yes'; fi").chomp != 'yes'
+        if not test "[[ -f #{arguments[:file]} ]]"
           raise "File at #{arguments[:file]} does not exist"        
         end
 
@@ -40,7 +40,7 @@ namespace :forkcms do
     def get_parameters
       parameter_path = "#{shared_path}/app/config/parameters.yml"
       # Abort if the parameters file doesn't exist
-      if capture("if [ -f #{parameter_path} ]; then echo 'yes'; fi").chomp != 'yes'
+      if not test "[[ -f #{parameter_path} ]]"
         raise "parameters.yml not found, it should be at #{parameter_path}"
       end
 
