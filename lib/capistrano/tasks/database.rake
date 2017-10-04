@@ -14,10 +14,10 @@ namespace :forkcms do
     task :restore do
       on roles(:web) do
         if not test "[[ -f #{release_path}/#{backup_file} ]]"
-          raise "No backup file found, create a backup first"
+          error "No backup file found, create a backup first"
+        else
+          Rake::Task["forkcms:database:execute"].invoke("#{release_path}/#{backup_file}")
         end
-
-        Rake::Task["forkcms:database:execute"].invoke("#{release_path}/#{backup_file}")
       end
     end
 
