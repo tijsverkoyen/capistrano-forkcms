@@ -118,6 +118,25 @@ set :opcache_reset_fcgi_connection_string, "$your-php-fpm-socket-or-connection-s
 set :branch, "staging"
 ```
 
+## Migrations
+
+Built in migrations allow you to easily update your database or locale when deploying a new codebase.
+
+### General
+
+Each migration is contained in its own folder in the main `migrations` folder (e.g. `migrations/new-editor-feature`).  
+When deploying, this gem will check if `new-editor-feature` has been executed before. If it hasn't, it will be executed and saved.
+
+### Locale
+
+To create a migration for the locale, create a file called `locale.xml` in your migration folder (e.g. `migrations/new-editor-feature/locale.xml`).  
+This file will be imported automatically using the `bin/console forkcms:locale:import` command.
+
+### Database
+
+To create a migration for the database, create a file called `update.sql` in your migration folder (e.g. `migrations/new-editor-feature/update.sql`).  
+This file will be imported automatically using `mysql` so make sure you don't accidentally delete your database.
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at [https://github.com/tijsverkoyen/capistrano-forkcms](https://github.com/tijsverkoyen/capistrano-forkcms).
