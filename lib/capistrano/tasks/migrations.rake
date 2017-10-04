@@ -68,6 +68,15 @@ namespace :forkcms do
       end
     end
 
+    desc 'Rollback the migrations'
+    task :rollback do
+      # Restore the database backup so we undo any executed migrations
+      Rake::Task["forkcms:database:restore"].invoke()
+
+      # Disable the maintenance page so the site is accessible again
+      Rake::Task["forkcms:maintenance:disable"].invoke()
+    end
+
     private
 
     # Creates a migration file to hold our executed migrations

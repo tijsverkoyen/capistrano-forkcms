@@ -18,6 +18,7 @@ namespace :deploy do
   after :publishing, 'forkcms:symlink:document_root'
   after :publishing, 'forkcms:opcache:reset'
   after :updated, 'forkcms:migrations:execute'
+  before :reverted, 'forkcms:migrations:rollback'
 end
 
 
