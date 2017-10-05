@@ -13,9 +13,6 @@ namespace :forkcms do
         # Prepare for migrations if it's not done already
         Rake::Task["forkcms:migrations:prepare"].invoke()
 
-        # If the current symlink doesn't exist yet, execute the first migration
-        execute_initial_migration if not test "[[ -e #{current_path} ]]"
-
         # Abort if no migrations are found
         migration_folders = get_migration_folders
         next if migration_folders.length == 0
@@ -81,12 +78,12 @@ namespace :forkcms do
 
       # Create an empty executed_migrations file
       upload! StringIO.new(''), "#{shared_path}/executed_migrations"
+
+      # If we just created the executed_migrations file, add all existing migrations
+      execute_initial_migration
     end
 
     # Put all items in the migrations folder in the executed_migrations file
-    # When doing a deploy:setup, we expect the database to already contain
-    # The migrations (so a clean copy of the database should be available
-    # when doing a setup)
     def execute_initial_migration
       migration_folders = get_migration_folders
 
