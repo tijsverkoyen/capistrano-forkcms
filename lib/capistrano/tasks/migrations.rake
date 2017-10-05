@@ -34,16 +34,16 @@ namespace :forkcms do
           migration_files = capture("ls -1 #{migration_path}").split(/\r?\n/)
 
           migration_files.each do |filename|
-            # Update the locale through the console command
-            if filename.index('locale.xml') != nil
-              execute :php, "#{release_path}/bin/console forkcms:locale:import -f #{migration_path}/#{filename}"
+            # Execute a MySQL file
+            if filename.index('update.sql') != nil
+              Rake::Task["forkcms:database:execute"].invoke("#{migration_path}/#{filename}")
 
               next
             end
 
-            # Execute a MySQL file
-            if filename.index('update.sql') != nil
-              Rake::Task["forkcms:database:execute"].invoke("#{migration_path}/#{filename}")
+            # Update the locale through the console command
+            if filename.index('locale.xml') != nil
+              execute :php, "#{release_path}/bin/console forkcms:locale:import -f #{migration_path}/#{filename}"
 
               next
             end
