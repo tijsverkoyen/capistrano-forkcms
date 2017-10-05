@@ -17,6 +17,8 @@ namespace :deploy do
   after :starting, 'cachetool:install_executable'
   after :publishing, 'forkcms:symlink:document_root'
   after :publishing, 'forkcms:opcache:reset'
+  after :updated, 'forkcms:migrations:execute'
+  before :reverted, 'forkcms:migrations:rollback'
 end
 
 
@@ -24,5 +26,6 @@ end
 load File.expand_path('../../tasks/configure.rake', __FILE__)
 load File.expand_path('../../tasks/database.rake', __FILE__)
 load File.expand_path('../../tasks/maintenance.rake', __FILE__)
+load File.expand_path('../../tasks/migrations.rake', __FILE__)
 load File.expand_path('../../tasks/opcache.rake', __FILE__)
 load File.expand_path('../../tasks/symlink.rake', __FILE__)
