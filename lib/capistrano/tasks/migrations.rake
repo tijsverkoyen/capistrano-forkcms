@@ -18,18 +18,14 @@ namespace :forkcms do
 
         # Abort if no migrations are found
         migration_folders = get_migration_folders
-        if migration_folders.length == 0
-          next
-        end
+        next if migration_folders.length == 0
 
         migrations_to_execute = get_migrations_to_execute
 
         # Abort if no new migrations are found
-        if migrations_to_execute.length == 0
-          next
-        end
+        next if migrations_to_execute.length == 0
 
-        # This can take a while and can go wrong. let's show a maintenance page
+        # As migrations can take a while we show a maintenance page
         Rake::Task["forkcms:maintenance:enable"].invoke()
 
         # Back up the database, just in case
