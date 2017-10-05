@@ -22,7 +22,6 @@ namespace :forkcms do
           next
         end
 
-        # Fetch unprocessed migrations
         migrations_to_execute = get_migrations_to_execute
 
         # Abort if no new migrations are found
