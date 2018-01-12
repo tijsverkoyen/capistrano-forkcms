@@ -16,6 +16,7 @@ namespace :deploy do
   after :starting, 'composer:install_executable'
   after :starting, 'cachetool:install_executable'
   after :publishing, 'forkcms:symlink:document_root'
+  after :publishing, 'forkcms:symlink:frontend_files'
   after :publishing, 'forkcms:opcache:reset'
   after :updated, 'forkcms:migrations:execute'
   before :reverted, 'forkcms:migrations:rollback'
