@@ -2,7 +2,7 @@
 set :linked_files, []
 set :linked_files,  %w(app/config/parameters.yml)
 set :linked_dirs, []
-set :linked_dirs, %w(app/logs app/sessions src/Frontend/Files)
+set :linked_dirs, %w(app/logs app/sessions)
 
 # Run required tasks after the stage
 Capistrano::DSL.stages.each do |stage|
