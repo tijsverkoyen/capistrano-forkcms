@@ -43,7 +43,7 @@ namespace :forkcms do
 
             # Update the locale through the console command
             if filename.index('locale.xml') != nil
-              execute :php, "#{release_path}/bin/console forkcms:locale:import -f #{migration_path}/#{filename}"
+              execute :php, "#{release_path}/bin/console forkcms:locale:import -f #{migration_path}/#{filename} --env=prod"
 
               next
             end
