@@ -5,6 +5,8 @@ namespace :forkcms do
       on roles(:web) do
         create_maintenance_folder
         execute :rm, '-rf', "#{fetch :document_root} && ln -sf #{shared_path}/maintenance #{fetch :document_root}"
+
+        Rake::Task["forkcms:opcache:reset"].invoke()
       end
     end
 
@@ -12,6 +14,8 @@ namespace :forkcms do
     task :disable do
       on roles(:web) do
         execute :rm, '-rf', "#{fetch :document_root} && ln -sf #{current_path} #{fetch :document_root}"
+
+        Rake::Task["forkcms:opcache:reset"].invoke()
       end
     end
 
